@@ -15,7 +15,7 @@ xTest, yTest = testData/127.5 - 1, testData
 # One-hot on Labels:
 def OneHot (Data, M):
     result = np.zeros((len(Data),M))
-    for i in range(len(Dat)):
+    for i in range(len(Data)):
         result[i,Data[i]] = 1
     return result
 TrainSet = xTrain[:20000]
