@@ -9,17 +9,19 @@ trainData, trainLabel = np.asarray(mndata.load_training())
 testData, testLabel = np.asarray(mndata.load_testing())
 
 # Data Prepare
-xTrain, yTrain = trainData/127.5 - 1, trainLabel
+xTrain, yTrain = trainData[:60000]/127.5 - 1, trainLabel
 xTest, yTest = testData/127.5 - 1, testData
 
 # One-hot on Labels:
 def OneHot (Data, M):
     result = np.zeros((len(Data),M))
-    for i in range(len(Data)):
+    for i in range(len(Dat)):
         result[i,Data[i]] = 1
     return result
-TrainSet = xTrain[:20000]
-TrainLable = OneHot(yTrain[:20000], 10)
+TrainSet = xTrain[:50000]
+TrainLable = OneHot(yTrain[:50000], 10)
+ValidSet = xTrain[-10000:]
+ValidLabel = OneHot(yTrain[-10000:], 10)
 TestSet = xTest[-2000:]
 TestLabel = OneHot(yTest[-2000:], 10)
 
@@ -28,10 +30,8 @@ def logistFunc (w, x):
     a = np.dot(np.transpose(w), x)
     return 1 / (1 + np.exp(-a))
 
-def softFunc (w, x, k):
-    ak = np.dot(np.transpose(w[:,k]), x)
-    a = np.dot(np.transpose(w), [x]*w.shape[1])
-    return np.exp(ak) / np.sum(np.exp(a))
+def softFunc (x):
+    return np.exp(x) / np.sum(np.exp(a), axis = 1)[:, np.newaxis]
 
 # Error:
 def softErr (t, y):
@@ -58,3 +58,17 @@ def check (w, x, t):
         elif count >= max_check:
             flag = False
             return True
+
+# Neural Network:
+def NN (x, num_node = 64, w_ih, w_ho):
+    # w_ih: d * num_node
+    # w_ho:  node * 10
+    # x: n * d
+    # d - dimension of input matrix
+    # n - number of examples
+    # num_node: node number of hidden layer
+    aj = np.dot(x, w_ih)
+    zj = logistFunc(aj)
+    ak = np.dot(zj, w_ho)
+    y = softFunc(ak)
+    return y
