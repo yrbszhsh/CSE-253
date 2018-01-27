@@ -39,25 +39,25 @@ def softErr (t, y):
     return Err
 
 # Check if gradient descent:
-def check (w, x, t):
-    max_check = 5
-    flag = True
-    count = 0
-    epsilon = 1e-2
-    while (flag):
-        count += 1
-        y1 = softFunc(w + epsilon, x, k)
-        y2 = softFunc(w - epsilon, x, k)
-        Err_1 = (t, y1)
-        Err_2 = (t, y2)
-        gradE = (Err_1 - Err_2) / (2 * epsilon)
-
-        if gradE > 0:
-            flag = False
-            return False
-        elif count >= max_check:
-            flag = False
-            return True
+# def check (w, x, t):
+#     max_check = 5
+#     flag = True
+#     count = 0
+#     epsilon = 1e-2
+#     while (flag):
+#         count += 1
+#         y1 = softFunc(w + epsilon, x, k)
+#         y2 = softFunc(w - epsilon, x, k)
+#         Err_1 = (t, y1)
+#         Err_2 = (t, y2)
+#         gradE = (Err_1 - Err_2) / (2 * epsilon)
+#
+#         if gradE > 0:
+#             flag = False
+#             return False
+#         elif count >= max_check:
+#             flag = False
+#             return True
 
 # Neural Network:
 def NN (x, num_node = 64, w_ih, w_ho):
