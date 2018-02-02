@@ -6,7 +6,7 @@ from sklearn.model_selection import train_test_split
 from scipy.signal import convolve2d
 
 # Load Data
-mndata = MNIST('mnist')
+mndata = MNIST('../mnist')
 trainData, trainLabel = mndata.load_training()
 testData, testLabel = mndata.load_testing()
 trainData = np.asarray(trainData) / 127.5 - 1

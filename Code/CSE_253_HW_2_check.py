@@ -4,7 +4,7 @@ import math
 import numpy as np
 import time
 
-mndata = MNIST('mnist')
+mndata = MNIST('../mnist')
 trainData, trainLabel = mndata.load_training()
 testData, testLabel = mndata.load_testing()
 

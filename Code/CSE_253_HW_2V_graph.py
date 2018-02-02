@@ -99,7 +99,7 @@ import time
 
 t0 = time.clock()
 
-mndata = MNIST('mnist')
+mndata = MNIST('../mnist')
 trainData, trainLabel = mndata.load_training()
 testData, testLabel = mndata.load_testing()
 
