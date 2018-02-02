@@ -39,7 +39,7 @@ def shuffle(X, t):
     X, t = X[:, ind], t[ind]
     return X, t
 
-def plot_losses(method):
+# def plot_losses(method):
     fig, ax = plt.subplots()
     niter = method.loss.shape[1]
     x = np.linspace(1, niter / method.miniBatch, niter)
@@ -50,9 +50,33 @@ def plot_losses(method):
     else:
         ax.plot(x, method.loss[1], label="test loss")
     ax.legend()
+def plotLoss(Tar):
+    loss = Tar.loss
+    iteration = loss.shape[1]
+    epacho = iteration / Tar.miniBatch
+    xx = np.linspace(1, epacho, iteration)
+    Flag = Tar.earlyStop
+    plt.figure(size = (8, 6))
+    plt.plot(xx, loss[0], label = 'train loss')
+    plt.plot(xx, loss[-1], label = 'test loss')
+    if loss.shape[0] == 3:
+        plt.plot(xx, loss[1], label = 'validation loss')
+    plt.legend()
 
+def plotError(Tar):
+    error = Tar.error
+    iteration = loss.shape[1]
+    epacho = iteration / Tar.miniBatch
+    xx = np.linspace(1, epacho, iteration)
+    Flag = Tar.earlyStop
+    plt.figure(size = (8, 6))
+    plt.plot(xx, loss[0], label = 'train percent correct')
+    plt.plot(xx, loss[-1], label = 'test percent correct')
+    if Flag:
+        plt.plot(xx,error[1], label = 'validation percent correct')
+    plt.legend()
 
-def plot_errors(method):
+# def plot_errors(method):
     fig, ax = plt.subplots()
     niter = method.error.shape[1]
     x = np.linspace(1, niter / method.miniBatch, niter)
@@ -102,10 +126,11 @@ testData = addBias(testData)
 # In[9]:
 
 class multiLayer():
-    def __init__(self, trainData, trainLabel, nHiddenLayer = (100,), lr = 1e-3, anneal = 0., maxIter = 1000, earlyStop=3, miniBatch = 1, lam = 0., momentum = 0.9, actFuns=("logistic","softMax")):
+    def __init__(self, trainData, trainLabel, nHiddenLayer = (64,), lr = 1e-3, anneal = 0., maxIter = 1000, earlyStop=3, miniBatch = 1, lam = 0., momentum = 0.9, actFuns=("softMax","softMax")):
         self.X = trainData
         self.t = trainLabel
-        self.X = addBias(self.X)
+        # self.X = addBias(self.X)
+        self.X = X
         self.earlyStop = earlyStop
         self.nClass = len(np.unique(trainLabel))
         if earlyStop:
@@ -122,14 +147,14 @@ class multiLayer():
         nLayer = len(nHiddenLayer) + 1
         self.numLayer = nLayer
         nUnits = (self.X.shape[0],) + nHiddenLayer + (self.nClass,)
-        self.W = [1 / np.sqrt(nUnits[i]) * np.random.randn(nUnits[i], nUnits[i + 1]) for i in range(nLayer)]
+        self.W = [1 / np.sqrt(nUnits[i]) * np.random.randn(nUnits[i] + 1, nUnits[i + 1]) for i in range(nLayer)]
         self.initW = self.W
         self.W = self.train(self.W, lr, maxIter, anneal, earlyStop, miniBatch, momentum)
 
     def train(self, weights, lr, maxIter, anneal, earlyStop, miniBatch, mu):
         d,n = self.X.shape
         batchSize = n / miniBatch
-        wRecords = [[] for _ in weights]
+        self.wRecords = [[] for _ in weights]
         v = [0 for _ in weights]
         trainLoss = trainError = validLoss = validError = testLoss = testError = 0
         it = 0
@@ -154,8 +179,8 @@ class multiLayer():
                 if i % 100 == 0:
                     testLoss, testError = self.evalTest(testData, testLabel, weights)
 
-                for j in range(len(wRecords)):
-                    wRecords[j].append(np.array(weights[j]))
+                for j in range(len(self.wRecords)):
+                    self.wRecords[j].append(np.array(weights[j]))
 
                 if earlyStop:
                     self.loss = np.hstack([self.loss, [[trainLoss], [validLoss], [testLoss]]])
@@ -179,7 +204,7 @@ class multiLayer():
                     stopCondition += 1
                     if stopCondition == earlyStop:
                         ind = self.error[2, :].argmin()
-                        return [wRecord[ind] for wRecord in wRecords]
+                        return [wRecord[ind] for wRecord in self.wRecords]
                 else:
                     stopCondition = 0
             else:
@@ -187,10 +212,11 @@ class multiLayer():
             it += 1
         if earlyStop:
             ind = self.error[2, :].argmin()
-            weights = [wRecord[ind] for wRecord in wRecords]
+            weights = [wRecord[ind] for wRecord in self.wRecords]
         return weights
 
     def evalLossError(self, X, t, weights):
+        X = addBias(X)
         outputs = self.forwardProp(X, weights)
         y = outputs[-1]
         n = t.size
@@ -203,7 +229,7 @@ class multiLayer():
         error = np.mean(prediction != t)
         return loss, error
 
-    def forwardProp(self, X, weights):
+    # def forwardProp(self, X, weights):
         outputs = [X]
         for weight, actFun in zip(weights, self.actFuns):
             if actFun == "softMax":
@@ -215,8 +241,26 @@ class multiLayer():
             elif actFun == "tanh":
                 outputs.append(tanh(outputs[-1], weight))
         return outputs[1:]
+    def forwardProp(self, X, weights):
+        X = addBias(X)
+        inputs = [X]
+        outputs = []
+        print(self.actFuns)
+        for weight, actFun in zip(weights, self.actFuns):
+            if actFun == "softMax":
+                outputs.append(softMax(inputs[-1], weight))
+                inputs.append(addBias(outputs[-1]))
+                print(len(outputs))
+            elif actFun == "ReLU":
+                outputs.append(ReLU(inputs[-1], weight))
+                inputs.append(addBias(outputs[-1]))
+            elif actFun == "tanh":
+                outputs.append(tanh(inputs[-1], weight))
+                inputs.append(addBias(outputs[-1]))
+            # print(len(outputs))
+        return outputs
 
-    def backProp(self, X, t, outputs, weights):
+    # def backProp(self, X, t, outputs, weights):
         n = t.size
         dW = []
         outputs = [X] + outputs
@@ -244,6 +288,31 @@ class multiLayer():
         for i in range(len(weights)):
             dW[i] += 2 * weights[i] * self.lam
         return dW
+    def backProp(self, X, t, outputs, weights):
+        X = addBias(X)
+        n = t.size
+        dW = []
+        outputs = [X] + outputs
+        for i in range(len(weights) - 1, -1, -1):
+            output1, output2 = outputs[i], outputs[i + 1]
+            if self.actFuns[i] == "softMax":
+                output2[t, range(n)] -= 1
+                delta = output2 / n
+                dW.append(np.dot(addBias(output1), delta.T))
+                print(np.dot(addBias(output1), delta.T).shape)
+            elif self.actFuns[i] == "ReLU":
+                delta = (1. * (output2 > 0)) * np.dot(weights[i + 1], delta)
+                dW.append(np.dot(output1, delta.T))
+            elif self.actFuns[i] == "tanh":
+                dG = (1 - np.power(output2 / 1.7159, 2)) * (2/3) * 1.7159
+                delta = dG * np.dot(weights[i+1], delta)[1:]
+                print(delta.shape)
+                dW.append(np.dot(output1, delta.T))
+                print(np.dot(output1, delta.T).shape)
+        dW = dW[::-1]
+        for i in range(len(weights)):
+            dW[i] += 2 * weights[i] * self.lam
+        return dW
 
     def evalTest(self, xTest, tTest, weights = 0):
         if type(weights) is int:
@@ -251,48 +320,9 @@ class multiLayer():
         else:
             return self.evalLossError(xTest, tTest, weights)
 
-    def plot_losses(self):
-        plot_losses(self)
-
-    def plot_errors(self):
-        plot_errors(self)
-
-def numericalGrad(X, t, weights, epsilon):
-    numGradient = []
-    for weight in weights:
-        numGrad = np.zeros(weight.shape)
-        xrang, yrang = range(weight.shape[0]), range(weight.shape[1])
-        xAxis, yAxis = np.meshgrid(xrang, yrang)
-        for i,j in zip(xAxis, yAxis):
-            weight[i,j] += epsilon
-            numGrad[i,j], E = multilayer.evalLossError(X, t, weight)
-        numGradient.append(numGrad)
-    return numGradient
-
-def checkGradient(X, t, epsilon, weights, numLayer):
-    diffGrad = []
-    output = multilayer.forwardProp(X, weights)
-    trueGrad = multilayer.backProp(X, t, output, weights)
-    numGrad = numericalGrad(X, t, weights, epsilon)
-    for l in numLayer:
-        diff = trueGrad[l] - numGrad[l]
-        diffGrad.append(diff)
-    return diffGrad
-
 # In[10]:
-epsilon = 1e-4
-inputData = addBias(trainData)
-multilayer = multiLayer(trainData, trainLabel, lr = 1e-2, earlyStop = False, maxIter = 40, actFuns=('tanh', 'softMax'), lam = 0., miniBatch = 50, nHiddenLayer = (64,))
-# weight = multilayer.initW
-# w1_, _w1 = changeWeight(weight, epsilon, 1), changeWeight(weight, -1.0 * epsilon, 1)
-# w2_, _w1 = changeWeight(weight, epsilon, 2), changeWeight(weight, -1.0 * epsilon, 2)
-# outputs = multilayer.forwardProp(inputData, weight)
-# trueGrad = multilayer.backProp(inputData, trainLabel, outputs, weight)
-# tgL1, tgL2 = trueGrad[-1], trueGrad[-2]
-# ngL1, ngL2 = numGrad(inputData, trainLabel, w1_, _w1), numGrad(inputData, trainLabel, w2_, _w2)
-diffNT = checkGradient(inputData, trainLabel, epsilon, multilayer.initW, multilayer.numLayer)
-print('diff of estEgrad and trueEgrad =', diffNT)
-# In[11]:
+multilayer = multiLayer(trainData, trainLabel, lr = 1e-1, earlyStop = False, maxIter = 100, actFuns=("tanh", "softMax"), lam = 0., miniBatch = 128, nHiddenLayer = (64, ))
+
 
 import matplotlib.pyplot as plt
 test_loss, test_error = multilayer.evalTest(testData, testLabel)
@@ -301,7 +331,9 @@ t1 = time.clock() - t0
 print ('Running Time =', t1)
 # multilayer.plot_losses()
 # multilayer.plot_errors()
-# plt.show()
+plotLoss(multilayer)
+plotError(multilayer)
+plt.show()
 
 
 # In[ ]:
