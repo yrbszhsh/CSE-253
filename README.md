@@ -2,6 +2,8 @@
 
 This repo contains source code of all 4 homeworks and 1 project. (Still working on code organization).
 
+## Source code
+
 * Homework 1 [Logistic & Softmax Regression via Gradient Descent](https://github.com/yrbszhsh/CSE-253/blob/Porj/Logistic%20and%20Softmax%20Regression%20via%20Gradient%20Descent.ipynb)
 
 **Contributor: Pin Tian, Zhexi Zhang**
