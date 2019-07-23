@@ -6,8 +6,18 @@ This repo contains source code of all 4 homeworks and 1 project. (Still working 
 
 **Contributor: Pin Tian, Zhexi Zhang**
 
-
-
 ## Homework 2 Multilayer Backpropagation Neural Networks
 
 **Contributor: Pin Tian, Zhexi Zhang**
+
+## Homework 3 Deep Convolution Network & Transfer Learning
+
+**Contributor: Pin Tian, Zhexi Zhang, Zhuoxi Zeng, Yuansheng Zhang**
+
+## Homework 4 Generating Music with Recurrent Networks
+
+**Contributor: Pin Tian, Zhexi Zhang, Zhuoxi Zeng, Yuansheng Zhang**
+
+## Final Project Image Caption Generation With Attention
+
+**Contributor: Pin Tian, Zhexi Zhang, Zhuoxi Zeng, Yuansheng Zhang**
