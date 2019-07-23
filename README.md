@@ -1,15 +1,8 @@
-# ECE-253
-## Homework 1
+# ECE-253 Neural Networks & Pattern Recognition
+## Homework 1 Logistic & Softmax Regression vis Gradient Descent
 
-Logistic regression VS. Softmax regression.
 
-Logistic regression: Binary classification.
-> Weight update: Gradient descent
-<img src="http://chart.googleapis.com/chart?cht=tx&chl=w_{i+1} = w_i - \eta \sum_{n=1}^N \nabla E^n(\omega) " style="border:none;">
 
-> Criterion: Cross-entropy (regualted)
-
-Softmax regression: Multi-category classification. Generated from logistic regression.
 
 
 ## Homework 2
