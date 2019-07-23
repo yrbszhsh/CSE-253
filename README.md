@@ -9,9 +9,6 @@ This repo contains source code of all 4 homeworks and 1 project. (Still working 
 
 
 
-## Homework 2
-Including neural networks for digit recognition based on softmax regression.
-
-Structure: Input layer + Hidden layer (1) + Output layer
+## Homework 2 Multilayer Backpropagation Neural Networks
 
 **Contributor: Pin Tian, Zhexi Zhang
