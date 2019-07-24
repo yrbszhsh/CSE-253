@@ -3,6 +3,9 @@
 This repo contains source code of all 4 homeworks and 1 project. (Still working on code organization).
 
 ## Homework 1 [Logistic & Softmax Regression via Gradient Descent](https://github.com/yrbszhsh/CSE-253/blob/Porj/Logistic%20and%20Softmax%20Regression%20via%20Gradient%20Descent.ipynb)
+Applied two regression methods, i.e. logistic regression and softmax regression, to images of hand-written digits for classication as a procedure of digit recognition. Regression follows gradient descent direction. The outcome is evaluated by regulated cross-entropy in order to avoid over-fitting. 
+
+In logistic regression, both datasets achieved correct rate over 95%. While in softmax regression, the whole dataset achieves correct rate at about 90%. In regularization, by optimizing parameters, regularization paremeter lambda is set to be 0.001 and regulation method is set to be L2.
 
 <!---**Contributor: Pin Tian, Zhexi Zhang**--->
 
