@@ -1,4 +1,4 @@
-# CSE-253 Neural Networks & Pattern Recognition
+# Neural Networks & Pattern Recognition
 
 This repo contains source code of all 4 homeworks and 1 project. (Still working on code organization).
 
