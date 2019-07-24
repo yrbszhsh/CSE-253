@@ -6,7 +6,7 @@ This repo contains source code of all 4 homeworks and 1 project. (Still working 
 
 <!---**Contributor: Pin Tian, Zhexi Zhang**--->
 
-## Homework 2 Multilayer Backpropagation Neural Networks
+## Homework 2 [Multilayer Backpropagation Neural Networks](https://github.com/yrbszhsh/Neural-Networks-and-Pattern-Recoginition/blob/Porj/Multilayer%20Backpropagation%20Neural%20Networks.ipynb)
 
 <!---**Contributor: Pin Tian, Zhexi Zhang**--->
 
