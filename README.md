@@ -14,7 +14,7 @@ This repo contains source code of all 4 homeworks and 1 project. (Still working 
 
 <!---**Contributor: Pin Tian, Zhexi Zhang, Zhuoxi Zeng, Yuansheng Zhang**--->
 
-## Homework 4 Generating Music with Recurrent Networks
+## Homework 4 [Generating Music with Recurrent Networks](https://github.com/yrbszhsh/Neural-Networks-and-Pattern-Recoginition/blob/Porj/Generating%20Music%20with%20Recurrent%20Networks.ipynb)
 
 <!---**Contributor: Pin Tian, Zhexi Zhang, Zhuoxi Zeng, Yuansheng Zhang**--->
 
