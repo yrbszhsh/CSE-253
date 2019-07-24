@@ -25,8 +25,10 @@ In the experiment of ReLU accuracy has less than 1% increase and further reduced
 
 ## Homework 3 [Deep Convolution Network & Transfer Learning](https://github.com/yrbszhsh/Neural-Networks-and-Pattern-Recoginition/blob/Porj/Deep%20Convolution%20Network%20%26%20Transfer%20Learning.ipynb)
 
-Applied two method in image classification and compared influence of CNN models with different convolution
-depth. CNN is applied to images from CIFAR-10 dataset. Among all the experiments, we selected the best CNN network with 8 convolution layer, 2 pooling layer and 3 fully connected layer which reaches 98.56% accuracy among training set and 90.24% among test set. Tricks such as image augment, batch normalization and weights initialization have been applied to the network.
+Applied two method in image classification and compared influence of CNN models with different convolution depth. CNN is applied to images from CIFAR-10 dataset. 
+
+Among all the experiments, selected the best CNN network with 8 convolution layer, 2 pooling layer and 3 fully connected layer which reaches 98.56% accuracy among training set and 90.24% among test set. Tricks such as image augment, batch normalization and weights initialization have been applied to the network.
+
 <!---**Contributor: Pin Tian, Zhexi Zhang, Zhuoxi Zeng, Yuansheng Zhang**--->
 
 ## Homework 4 [Generating Music with Recurrent Networks](https://github.com/yrbszhsh/Neural-Networks-and-Pattern-Recoginition/blob/Porj/Generating%20Music%20with%20Recurrent%20Networks.ipynb)
