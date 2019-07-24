@@ -10,7 +10,7 @@ This repo contains source code of all 4 homeworks and 1 project. (Still working 
 
 <!---**Contributor: Pin Tian, Zhexi Zhang**--->
 
-## Homework 3 Deep Convolution Network & Transfer Learning
+## Homework 3 [Deep Convolution Network & Transfer Learning](https://github.com/yrbszhsh/Neural-Networks-and-Pattern-Recoginition/blob/Porj/Deep%20Convolution%20Network%20%26%20Transfer%20Learning.ipynb)
 
 <!---**Contributor: Pin Tian, Zhexi Zhang, Zhuoxi Zeng, Yuansheng Zhang**--->
 
