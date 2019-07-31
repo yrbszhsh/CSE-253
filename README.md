@@ -1,5 +1,6 @@
 # Neural Networks & Pattern Recognition
 
+This is a great repo to learn Neural Networks!
 This repo contains source code of all 4 homeworks and 1 project. (First Version finished)
 
 ## Homework 1 [Logistic & Softmax Regression via Gradient Descent](https://github.com/yrbszhsh/Neural-Networks-and-Pattern-Recoginition/blob/Porj/1.%20Logistic%20and%20Softmax%20Regression%20via%20Gradient%20Descent.ipynb)
